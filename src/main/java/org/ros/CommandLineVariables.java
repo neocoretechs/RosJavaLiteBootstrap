@@ -31,4 +31,6 @@ public interface CommandLineVariables {
   public static String ROS_MASTER_URI = "__master";
   public static String TCPROS_PORT = "__tcpros_server_port";
   public static String NODE_NAME = "__name";
+  public static String ROS_IP_PORT = "__ipport";
+  
 }

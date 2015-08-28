@@ -61,7 +61,13 @@ public class MessageProxyFactory {
 		e.printStackTrace();
 		throw new RosRuntimeException(e);
 	}
-    return newProxy(messageInterfaceClass, messageImpl);
+    try {
+		return messageInterfaceClass.newInstance();
+	} catch (InstantiationException | IllegalAccessException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}//newProxy(messageInterfaceClass, messageImpl);
+    return null;
   }
 
   /**

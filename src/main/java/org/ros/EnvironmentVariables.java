@@ -29,4 +29,6 @@ public interface EnvironmentVariables {
   public static String ROS_NAMESPACE = "ROS_NAMESPACE";
   public static String ROS_ROOT = "ROS_ROOT";
   public static String ROS_PACKAGE_PATH = "ROS_PACKAGE_PATH";
+  public static String ROS_IP_PORT = "ROS_IP_PORT";
+  public static String ROS_HOSTPORT = "ROS_HOSTPORT";
 }
