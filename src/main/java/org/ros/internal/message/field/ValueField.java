@@ -16,13 +16,15 @@
 
 package org.ros.internal.message.field;
 
+import java.io.Serializable;
+
 import org.jboss.netty.buffer.ChannelBuffer;
 
 /**
  * @author damonkohler@google.com (Damon Kohler)
  */
-class ValueField<T> extends Field {
-
+class ValueField<T> extends Field implements Serializable {
+  private static final long serialVersionUID = -6187183275557684853L;
   private T value;
 
   static <T> ValueField<T> newConstant(FieldType type, String name, T value) {
@@ -33,6 +35,8 @@ class ValueField<T> extends Field {
     return new ValueField<T>(type, name, null, false);
   }
 
+  public ValueField() {}
+  
   private ValueField(FieldType type, String name, T value, boolean isConstant) {
     super(type, name, isConstant);
     this.value = value;

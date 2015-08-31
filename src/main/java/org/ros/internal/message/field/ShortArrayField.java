@@ -19,14 +19,16 @@ package org.ros.internal.message.field;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * @author damonkohler@google.com (Damon Kohler)
  */
-public class ShortArrayField extends Field {
+public class ShortArrayField extends Field implements Serializable {
+  private static final long serialVersionUID = -1040540702771458698L;
 
-  private final int size;
+  private int size;
 
   private short[] value;
 
@@ -34,6 +36,8 @@ public class ShortArrayField extends Field {
     return new ShortArrayField(type, name, size);
   }
 
+  public ShortArrayField() {}
+  
   private ShortArrayField(FieldType type, String name, int size) {
     super(type, name, false);
     this.size = size;

@@ -21,6 +21,7 @@ import org.ros.message.MessageDeclaration;
 import org.ros.message.MessageFactory;
 import org.ros.message.MessageIdentifier;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -34,15 +35,15 @@ import java.util.Map;
  * 
  * @author damonkohler@google.com (Damon Kohler)
  */
-public class MessageContext {
-
-  private final MessageDeclaration messageDeclaration;
-  private final MessageFactory messageFactory;
-  private final Map<String, FieldFactory> fieldFactories;
-  private final Map<String, String> fieldGetterNames;
-  private final Map<String, String> fieldSetterNames;
-  private final List<String> fieldNames;
-
+public class MessageContext implements Serializable {
+  private static final long serialVersionUID = 3890864036659598629L;
+  private  MessageDeclaration messageDeclaration;
+  private transient MessageFactory messageFactory;
+  private transient Map<String, FieldFactory> fieldFactories;
+  private  Map<String, String> fieldGetterNames;
+  private  Map<String, String> fieldSetterNames;
+  private  List<String> fieldNames;
+  public MessageContext() {}
   public MessageContext(MessageDeclaration messageDeclaration, MessageFactory messageFactory) {
     this.messageDeclaration = messageDeclaration;
     this.messageFactory = messageFactory;

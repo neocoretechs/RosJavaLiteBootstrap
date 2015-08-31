@@ -21,6 +21,7 @@ import org.jboss.netty.buffer.ChannelBuffer;
 import org.ros.message.Duration;
 import org.ros.message.Time;
 
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.HashSet;
@@ -29,7 +30,7 @@ import java.util.Set;
 /**
  * @author damonkohler@google.com (Damon Kohler)
  */
-public enum PrimitiveFieldType implements FieldType {
+public enum PrimitiveFieldType implements FieldType, Serializable {
 
   BOOL {
     @SuppressWarnings("unchecked")

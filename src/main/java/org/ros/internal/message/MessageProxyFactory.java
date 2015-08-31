@@ -26,6 +26,7 @@ import java.lang.reflect.Proxy;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * Service requests and responses
  * @author damonkohler@google.com (Damon Kohler)
  */
 public class MessageProxyFactory {

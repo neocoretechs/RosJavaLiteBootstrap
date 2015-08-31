@@ -19,6 +19,7 @@ package org.ros.internal.message.field;
 import org.ros.exception.RosRuntimeException;
 import org.ros.internal.message.context.MessageContext;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,12 +29,12 @@ import java.util.Map;
 /**
  * @author damonkohler@google.com (Damon Kohler)
  */
-public class MessageFields {
-
-  private final Map<String, Field> fields;
-  private final Map<String, Field> setters;
-  private final Map<String, Field> getters;
-  private final List<Field> orderedFields;
+public class MessageFields implements Serializable {
+  private static final long serialVersionUID = -8375131025949194350L;
+  private Map<String, Field> fields;
+  private Map<String, Field> setters;
+  private Map<String, Field> getters;
+  private List<Field> orderedFields;
 
   public MessageFields(MessageContext messageContext) {
     fields = new HashMap<String, Field>();
@@ -49,6 +50,8 @@ public class MessageFields {
     }
   }
 
+  public MessageFields() {}
+  
   public Field getField(String name) {
     return fields.get(name);
   }

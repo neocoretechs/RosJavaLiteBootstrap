@@ -16,18 +16,22 @@
 
 package org.ros.internal.message.field;
 
+import java.io.Serializable;
+
 import org.jboss.netty.buffer.ChannelBuffer;
 
 
 /**
  * @author damonkohler@google.com (Damon Kohler)
  */
-public abstract class Field {
-
-  protected final FieldType type;
-  protected final String name;
-  protected final boolean isConstant;
-
+public abstract class Field implements Serializable {
+  private static final long serialVersionUID = 2147925628455327757L;
+  protected  FieldType type;
+  protected  String name;
+  protected  boolean isConstant;
+  
+  public Field() {}
+  
   protected Field(FieldType type, String name, boolean isConstant) {
     this.name = name;
     this.type = type;

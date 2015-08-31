@@ -17,10 +17,10 @@
 package org.ros.internal.message.service;
 
 import org.ros.internal.message.definition.MessageDefinitionTupleParser;
-
 import org.ros.message.MessageDeclaration;
 import org.ros.message.MessageIdentifier;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -28,13 +28,13 @@ import java.util.List;
  * 
  * @author damonkohler@google.com (Damon Kohler)
  */
-public class ServiceDescription extends MessageDeclaration {
-
-  private final String requestType;
-  private final String requestDefinition;
-  private final String responseType;
-  private final String responseDefinition;
-  private final String md5Checksum;
+public class ServiceDescription extends MessageDeclaration implements Serializable {
+  private static final long serialVersionUID = 2595078531149391445L;
+  private String requestType;
+  private String requestDefinition;
+  private String responseType;
+  private String responseDefinition;
+  private String md5Checksum;
 
   public ServiceDescription(String type, String definition, String md5Checksum) {
     super(MessageIdentifier.of(type), definition);
@@ -46,6 +46,8 @@ public class ServiceDescription extends MessageDeclaration {
     responseDefinition = requestAndResponse.get(1);
   }
 
+  public ServiceDescription() {}
+  
   public String getMd5Checksum() {
     return md5Checksum;
   }

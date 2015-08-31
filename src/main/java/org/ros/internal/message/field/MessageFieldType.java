@@ -20,11 +20,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
 import org.jboss.netty.buffer.ChannelBuffer;
-
 import org.ros.internal.message.Message;
 import org.ros.message.MessageFactory;
 import org.ros.message.MessageIdentifier;
@@ -34,18 +34,19 @@ import org.ros.message.MessageIdentifier;
 /**
  * @author damonkohler@google.com (Damon Kohler)
  */
-public class MessageFieldType implements FieldType {
-
-  private final MessageIdentifier messageIdentifier;
-  private final MessageFactory messageFactory;
+public class MessageFieldType implements FieldType, Serializable {
+  private static final long serialVersionUID = -5991760011444968163L;
+  private MessageIdentifier messageIdentifier;
+  private transient MessageFactory messageFactory;
  
-
   public MessageFieldType(MessageIdentifier messageIdentifier, MessageFactory messageFactory) {
     this.messageIdentifier = messageIdentifier;
     this.messageFactory = messageFactory;
   
   }
 
+  public MessageFieldType() {}
+  
   public MessageFactory getMessageFactory() {
     return messageFactory;
   }

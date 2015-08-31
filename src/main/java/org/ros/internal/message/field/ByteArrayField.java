@@ -19,21 +19,24 @@ package org.ros.internal.message.field;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * @author damonkohler@google.com (Damon Kohler)
  */
-public class ByteArrayField extends Field {
+public class ByteArrayField extends Field implements Serializable {
+  private static final long serialVersionUID = 7134556149357412128L;
 
-  private final int size;
+  private int size;
 
   private byte[] value;
 
   public static ByteArrayField newVariable(FieldType type, String name, int size) {
     return new ByteArrayField(type, name, size);
   }
-
+  public ByteArrayField() {}
+  
   private ByteArrayField(FieldType type, String name, int size) {
     super(type, name, false);
     this.size = size;

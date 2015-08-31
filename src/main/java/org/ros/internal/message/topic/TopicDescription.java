@@ -16,6 +16,8 @@
 
 package org.ros.internal.message.topic;
 
+import java.io.Serializable;
+
 import org.ros.message.MessageDeclaration;
 import org.ros.message.MessageIdentifier;
 
@@ -24,16 +26,17 @@ import org.ros.message.MessageIdentifier;
  * 
  * @author damonkohler@google.com (Damon Kohler)
  */
-public class TopicDescription extends MessageDeclaration {
-
+public class TopicDescription extends MessageDeclaration implements Serializable {
   private static final long serialVersionUID = 3394970154727447134L;
-  private final String md5Checksum;
+  private String md5Checksum;
 
   public TopicDescription(String type, String definition, String md5Checksum) {
     super(MessageIdentifier.of(type), definition);
     this.md5Checksum = md5Checksum;
   }
 
+  public TopicDescription() {}
+  
   public String getMd5Checksum() {
     return md5Checksum;
   }

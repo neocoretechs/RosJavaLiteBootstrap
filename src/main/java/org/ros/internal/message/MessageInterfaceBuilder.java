@@ -170,15 +170,27 @@ public class MessageInterfaceBuilder {
         continue;
       }
       getters.add(getter);
-      if(type.contains("ChannelBuffer"))
-    	  builder.append(String.format("\tprivate transient %s %s;\n", type, field.getName()));
-      else
+      if(type.contains("ChannelBuffer")) {
+    	  builder.append(String.format("\tprivate transient %s %s=null;\n", type, field.getName()));
+    	  builder.append(String.format("\tprivate byte[] bytes%s;\n", field.getName()));
+    	  builder.append(String.format("\tpublic %s %s() { if( %s != null ) return %s; else %s = %ss.wrappedBuffer(bytes%s); return %s; }\n", type, getter, 
+    			  field.getName(),field.getName(),field.getName(),type,field.getName(),field.getName()));
+    	  // mutator
+          String value = "value";
+          if( field.getName().equals("value"))
+        	  value = "xvalue";
+          builder.append(String.format("\tpublic void %s(%s "+value+") { %s = "+value+";  bytes%s = %s.array(); }\n", setter, type, 
+        		  field.getName(),field.getName(),field.getName()));
+      } else {
     	  builder.append(String.format("\tprivate %s %s;\n", type, field.getName()));
-      builder.append(String.format("\tpublic %s %s() { return %s; }\n", type, getter, field.getName()));
-      String value = "value";
-      if( field.getName().equals("value"))
-    	  value = "xvalue";
-      builder.append(String.format("\tpublic void %s(%s "+value+") { %s = "+value+"; }\n", setter, type, field.getName()));
+    	  builder.append(String.format("\tpublic %s %s() { return %s; }\n", type, getter, field.getName()));
+          String value = "value";
+          if( field.getName().equals("value"))
+        	  value = "xvalue";
+          builder.append(String.format("\tpublic void %s(%s "+value+") { %s = "+value+"; }\n", setter, type, field.getName()));
+      }
+ 
+
     }
   }
 }

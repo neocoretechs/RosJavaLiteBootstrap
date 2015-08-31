@@ -26,16 +26,17 @@ import org.ros.message.Duration;
 import org.ros.message.MessageIdentifier;
 import org.ros.message.Time;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author damonkohler@google.com (Damon Kohler)
  */
-class MessageImpl implements GetInstance {
-
-  private final MessageContext messageContext;
-  private final MessageFields messageFields;
-
+class MessageImpl implements GetInstance, Serializable {
+  private static final long serialVersionUID = 3583352173348650846L;
+  private  MessageContext messageContext;
+  private  MessageFields messageFields;
+  public MessageImpl() {}
   public MessageImpl(MessageContext messageContext) {
     this.messageContext = messageContext;
     messageFields = new MessageFields(messageContext);

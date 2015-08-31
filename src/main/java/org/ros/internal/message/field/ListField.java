@@ -18,6 +18,7 @@ package org.ros.internal.message.field;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +28,16 @@ import java.util.List;
  * @param <T>
  *          the value type
  */
-public class ListField<T> extends Field {
-
+public class ListField<T> extends Field implements Serializable {
+  private static final long serialVersionUID = -4024530569460884480L;
   private List<T> value;
 
   public static <T> ListField<T> newVariable(FieldType type, String name) {
     return new ListField<T>(type, name);
   }
 
+  public ListField() {}
+  
   private ListField(FieldType type, String name) {
     super(type, name, false);
     value = new ArrayList<T>();

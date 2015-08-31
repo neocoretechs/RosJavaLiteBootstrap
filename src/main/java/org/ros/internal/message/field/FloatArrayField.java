@@ -18,14 +18,16 @@ package org.ros.internal.message.field;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * @author damonkohler@google.com (Damon Kohler)
  */
-public class FloatArrayField extends Field {
+public class FloatArrayField extends Field implements Serializable  {
+  private static final long serialVersionUID = 1423082568478293473L;
 
-  private final int size;
+  private int size;
 
   private float[] value;
 
@@ -33,6 +35,8 @@ public class FloatArrayField extends Field {
     return new FloatArrayField(PrimitiveFieldType.FLOAT32, name, size);
   }
 
+  public FloatArrayField() {}
+  
   private FloatArrayField(FieldType type, String name, int size) {
     super(type, name, false);
     this.size = size;

@@ -20,21 +20,25 @@ package org.ros.internal.message.field;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.ros.internal.message.MessageBuffers;
 
+import java.io.Serializable;
 import java.nio.ByteOrder;
 
 /**
  * @author damonkohler@google.com (Damon Kohler)
  */
-public class ChannelBufferField extends Field {
+public class ChannelBufferField extends Field implements Serializable {
 
-  private final int size;
+  private static final long serialVersionUID = -2957462396867754799L;
 
-  private ChannelBuffer value;
+  private int size;
+
+  private transient ChannelBuffer value;
 
   public static ChannelBufferField newVariable(FieldType type, String name, int size) {
     return new ChannelBufferField(type, name, size);
   }
-
+  public ChannelBufferField() {}
+  
   private ChannelBufferField(FieldType type, String name, int size) {
     super(type, name, false);
     this.size = size;

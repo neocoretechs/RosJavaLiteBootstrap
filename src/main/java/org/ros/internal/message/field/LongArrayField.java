@@ -19,14 +19,16 @@ package org.ros.internal.message.field;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * @author damonkohler@google.com (Damon Kohler)
  */
-public class LongArrayField extends Field {
+public class LongArrayField extends Field implements Serializable {
+  private static final long serialVersionUID = 7377367721418490002L;
 
-  private final int size;
+  private int size;
 
   private long[] value;
 
@@ -35,7 +37,9 @@ public class LongArrayField extends Field {
         || type.equals(PrimitiveFieldType.INT64) || type.equals(PrimitiveFieldType.UINT64));
     return new LongArrayField(type, name, size);
   }
-
+  
+  public LongArrayField() {}
+  
   private LongArrayField(FieldType type, String name, int size) {
     super(type, name, false);
     this.size = size;
