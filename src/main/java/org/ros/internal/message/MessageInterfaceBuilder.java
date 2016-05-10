@@ -170,11 +170,12 @@ public class MessageInterfaceBuilder {
         continue;
       }
       getters.add(getter);
-      if(type.contains("ChannelBuffer")) {
+      //if(type.contains("ChannelBuffer")) {
+      if(type.contains("ByteBuf")) {
     	  builder.append(String.format("\tprivate transient %s %s=null;\n", type, field.getName()));
     	  builder.append(String.format("\tprivate byte[] bytes%s;\n", field.getName()));
-    	  builder.append(String.format("\tpublic %s %s() { if( %s != null ) return %s; else %s = %ss.wrappedBuffer(bytes%s); return %s; }\n", type, getter, 
-    			  field.getName(),field.getName(),field.getName(),type,field.getName(),field.getName()));
+    	  builder.append(String.format("\tpublic %s %s() { if( %s != null ) return %s; else %s = io.netty.buffer.Unpooled.wrappedBuffer(bytes%s); return %s; }\n", type, getter, 
+    			  field.getName(),field.getName(),field.getName(),field.getName(),field.getName()));
     	  // mutator
           String value = "value";
           if( field.getName().equals("value"))

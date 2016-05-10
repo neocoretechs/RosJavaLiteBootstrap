@@ -1,20 +1,9 @@
 /*
- * Copyright (C) 2011 Google Inc.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
  */
 
 package org.ros.internal.message.field;
+
+import io.netty.buffer.ByteBuf;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -24,15 +13,12 @@ import java.io.Serializable;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
-import org.jboss.netty.buffer.ChannelBuffer;
 import org.ros.internal.message.Message;
 import org.ros.message.MessageFactory;
 import org.ros.message.MessageIdentifier;
 
 
-
 /**
- * @author damonkohler@google.com (Damon Kohler)
  */
 public class MessageFieldType implements FieldType, Serializable {
   private static final long serialVersionUID = -5991760011444968163L;
@@ -92,7 +78,7 @@ public class MessageFieldType implements FieldType, Serializable {
   }
 
   @Override
-  public <T> void serialize(T value, ChannelBuffer buffer) {
+  public <T> void serialize(T value, ByteBuf buffer) {
     //serializer.serialize((Message) value, buffer);
 	DirectByteArrayOutputStream dbaos = new DirectByteArrayOutputStream();
 	ObjectOutputStream oos;
@@ -109,7 +95,7 @@ public class MessageFieldType implements FieldType, Serializable {
 
   @SuppressWarnings("unchecked")
   @Override
-  public Message deserialize(ChannelBuffer buffer) {
+  public Message deserialize(ByteBuf buffer) {
     //return deserializer.deserialize(buffer);
 	byte[] obuf = buffer.array();
 	Object Od = null;

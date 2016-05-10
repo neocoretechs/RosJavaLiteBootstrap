@@ -17,8 +17,9 @@
 package org.ros.internal.message.field;
 
 
-import org.jboss.netty.buffer.ChannelBuffer;
 import org.ros.internal.message.MessageBuffers;
+
+import io.netty.buffer.ByteBuf;
 
 import java.io.Serializable;
 import java.nio.ByteOrder;
@@ -32,7 +33,7 @@ public class ChannelBufferField extends Field implements Serializable {
 
   private int size;
 
-  private transient ChannelBuffer value;
+  private transient ByteBuf value;
 
   public static ChannelBufferField newVariable(FieldType type, String name, int size) {
     return new ChannelBufferField(type, name, size);
@@ -47,7 +48,7 @@ public class ChannelBufferField extends Field implements Serializable {
 
   @SuppressWarnings("unchecked")
   @Override
-  public ChannelBuffer getValue() {
+  public ByteBuf getValue() {
     // Return a defensive duplicate. Unlike with copy(), duplicated
     // ChannelBuffers share the same backing array, so this is relatively cheap.
     return value.duplicate();
@@ -55,13 +56,13 @@ public class ChannelBufferField extends Field implements Serializable {
 
   @Override
   public void setValue(Object value) {
-    assert(((ChannelBuffer) value).order() == ByteOrder.LITTLE_ENDIAN);
-    assert(size < 0 || ((ChannelBuffer) value).readableBytes() == size);
-    this.value = (ChannelBuffer) value;
+    assert(((ByteBuf) value).order() == ByteOrder.LITTLE_ENDIAN);
+    assert(size < 0 || ((ByteBuf) value).readableBytes() == size);
+    this.value = (ByteBuf) value;
   }
 
   @Override
-  public void serialize(ChannelBuffer buffer) {
+  public void serialize(ByteBuf buffer) {
     if (size < 0) {
       buffer.writeInt(value.readableBytes());
     }
@@ -71,7 +72,7 @@ public class ChannelBufferField extends Field implements Serializable {
   }
 
   @Override
-  public void deserialize(ChannelBuffer buffer) {
+  public void deserialize(ByteBuf buffer) {
     int currentSize = size;
     if (currentSize < 0) {
       currentSize = buffer.readInt();
@@ -86,7 +87,7 @@ public class ChannelBufferField extends Field implements Serializable {
 
   @Override
   public String getJavaTypeName() {
-    return "org.jboss.netty.buffer.ChannelBuffer";
+    return "io.netty.buffer.ByteBuf";
   }
 
   @Override

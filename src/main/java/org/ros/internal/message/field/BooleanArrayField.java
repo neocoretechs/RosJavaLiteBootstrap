@@ -17,7 +17,7 @@
 package org.ros.internal.message.field;
 
 
-import org.jboss.netty.buffer.ChannelBuffer;
+import io.netty.buffer.ByteBuf;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -57,7 +57,7 @@ public class BooleanArrayField extends Field implements Serializable {
   }
 
   @Override
-  public void serialize(ChannelBuffer buffer) {
+  public void serialize(ByteBuf buffer) {
     if (size < 0) {
       buffer.writeInt(value.length);
     }
@@ -67,7 +67,7 @@ public class BooleanArrayField extends Field implements Serializable {
   }
 
   @Override
-  public void deserialize(ChannelBuffer buffer) {
+  public void deserialize(ByteBuf buffer) {
     int currentSize = size;
     if (currentSize < 0) {
       currentSize = buffer.readInt();

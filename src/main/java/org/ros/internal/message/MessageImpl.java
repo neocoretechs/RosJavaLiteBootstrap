@@ -16,7 +16,6 @@
 
 package org.ros.internal.message;
 
-import org.jboss.netty.buffer.ChannelBuffer;
 import org.ros.exception.RosRuntimeException;
 import org.ros.internal.message.context.MessageContext;
 import org.ros.internal.message.field.Field;
@@ -25,6 +24,8 @@ import org.ros.internal.message.field.MessageFields;
 import org.ros.message.Duration;
 import org.ros.message.MessageIdentifier;
 import org.ros.message.Time;
+
+import io.netty.buffer.ByteBuf;
 
 import java.io.Serializable;
 import java.util.List;
@@ -425,12 +426,12 @@ class MessageImpl implements GetInstance, Serializable {
   }
   
   
-  public ChannelBuffer getChannelBuffer(String name) {
-    return (ChannelBuffer) messageFields.getFieldValue(name);
+  public ByteBuf getChannelBuffer(String name) {
+    return (ByteBuf) messageFields.getFieldValue(name);
   }
 
   
-  public void setChannelBuffer(String name, ChannelBuffer value) {
+  public void setChannelBuffer(String name, ByteBuf value) {
     messageFields.setFieldValue(name, value);
   }
   
