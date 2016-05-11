@@ -11,6 +11,9 @@ import org.ros.internal.message.field.PrimitiveFieldType;
 import org.ros.message.MessageDeclaration;
 import org.ros.message.MessageFactory;
 
+import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.channel.ChannelOption;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -174,7 +177,7 @@ public class MessageInterfaceBuilder {
       if(type.contains("ByteBuf")) {
     	  builder.append(String.format("\tprivate transient %s %s=null;\n", type, field.getName()));
     	  builder.append(String.format("\tprivate byte[] bytes%s;\n", field.getName()));
-    	  builder.append(String.format("\tpublic %s %s() { if( %s != null ) return %s; else %s = io.netty.buffer.Unpooled.wrappedBuffer(bytes%s); return %s; }\n", type, getter, 
+    	  builder.append(String.format("\tpublic %s %s() { if( %s != null ) return %s; else %s = io.netty.buffer.PooledByteBufAllocator.DEFAULT.buffer().setBytes(0,bytes%s); return %s.order(java.nio.ByteOrder.LITTLE_ENDIAN); }\n", type, getter, 
     			  field.getName(),field.getName(),field.getName(),field.getName(),field.getName()));
     	  // mutator
           String value = "value";

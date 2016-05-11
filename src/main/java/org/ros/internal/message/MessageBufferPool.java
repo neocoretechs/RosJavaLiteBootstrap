@@ -36,7 +36,7 @@ import org.ros.exception.RosRuntimeException;
 public class MessageBufferPool {
 
   //private final ObjectPool<ByteBuf> pool;
-	private final PooledByteBufAllocator pool;
+	//private final PooledByteBufAllocator pool;
 
   public MessageBufferPool() {
 	  /*
@@ -65,7 +65,7 @@ public class MessageBufferPool {
       }
     });
     */
-	  pool = new PooledByteBufAllocator();
+	 
   }
 
   /**
@@ -77,7 +77,7 @@ public class MessageBufferPool {
   public ByteBuf acquire() {
     try {
       //return pool.borrowObject();
-    	return pool.buffer();
+    	return PooledByteBufAllocator.DEFAULT.buffer();
     } catch (Exception e) {
       throw new RosRuntimeException(e);
     }
@@ -92,7 +92,8 @@ public class MessageBufferPool {
   public void release(ByteBuf channelBuffer) {
     try {
       //pool.returnObject(channelBuffer);
-    	ReferenceCountUtil.release(channelBuffer);
+    	//ReferenceCountUtil.release(channelBuffer);
+    	
     } catch (Exception e) {
       throw new RosRuntimeException(e);
     }
