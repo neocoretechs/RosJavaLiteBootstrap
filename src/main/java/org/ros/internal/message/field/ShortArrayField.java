@@ -1,12 +1,7 @@
-/*
- */
-
 package org.ros.internal.message.field;
 
-
-import io.netty.buffer.ByteBuf;
-
 import java.io.Serializable;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 /**
@@ -43,9 +38,9 @@ public class ShortArrayField extends Field implements Serializable {
   }
 
   @Override
-  public void serialize(ByteBuf buffer) {
+  public void serialize(ByteBuffer buffer) {
     if (size < 0) {
-      buffer.writeInt(value.length);
+      buffer.putInt(value.length);
     }
     for (short v : value) {
       type.serialize(v, buffer);
@@ -53,14 +48,14 @@ public class ShortArrayField extends Field implements Serializable {
   }
 
   @Override
-  public void deserialize(ByteBuf buffer) {
+  public void deserialize(ByteBuffer buffer) {
     int currentSize = size;
     if (currentSize < 0) {
-      currentSize = buffer.readInt();
+      currentSize = buffer.getInt();
     }
     value = new short[currentSize];
     for (int i = 0; i < currentSize; i++) {
-      value[i] = buffer.readShort();
+      value[i] = buffer.getShort();
     }
   }
 

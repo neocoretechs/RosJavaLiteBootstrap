@@ -1,26 +1,8 @@
-/*
- * Copyright (C) 2011 Google Inc.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-
 package org.ros.internal.message.field;
-
 
 import org.ros.message.Duration;
 import org.ros.message.Time;
 
-import io.netty.buffer.ByteBuf;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -29,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author damonkohler@google.com (Damon Kohler)
+ * @author jg
  */
 public enum PrimitiveFieldType implements FieldType, Serializable {
 
@@ -51,15 +33,15 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       assert(value instanceof Boolean);
-      buffer.writeByte((byte) ((Boolean) value ? 1 : 0));
+      buffer.put((byte) ((Boolean) value ? 1 : 0));
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Boolean deserialize(ByteBuf buffer) {
-      return buffer.readByte() == 1;
+    public Boolean deserialize(ByteBuffer buffer) {
+      return buffer.get() == 1;
     }
 
     @SuppressWarnings("unchecked")
@@ -91,15 +73,15 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       assert(value instanceof Byte);
-      buffer.writeByte((Byte) value);
+      buffer.put((Byte) value);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Byte deserialize(ByteBuf buffer) {
-      return buffer.readByte();
+    public Byte deserialize(ByteBuffer buffer) {
+      return buffer.get();
     }
 
     @SuppressWarnings("unchecked")
@@ -134,13 +116,13 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       INT8.serialize(value, buffer);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Byte deserialize(ByteBuf buffer) {
+    public Byte deserialize(ByteBuffer buffer) {
       return INT8.deserialize(buffer);
     }
 
@@ -173,13 +155,13 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       INT8.serialize(value, buffer);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Byte deserialize(ByteBuf buffer) {
+    public Byte deserialize(ByteBuffer buffer) {
       return INT8.deserialize(buffer);
     }
 
@@ -215,13 +197,13 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       UINT8.serialize(value, buffer);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Byte deserialize(ByteBuf buffer) {
+    public Byte deserialize(ByteBuffer buffer) {
       return UINT8.deserialize(buffer);
     }
 
@@ -254,15 +236,15 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       assert(value instanceof Short);
-      buffer.writeShort((Short) value);
+      buffer.putShort((Short) value);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Short deserialize(ByteBuf buffer) {
-      return buffer.readShort();
+    public Short deserialize(ByteBuffer buffer) {
+      return buffer.getShort();
     }
 
     @SuppressWarnings("unchecked")
@@ -294,13 +276,13 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       INT16.serialize(value, buffer);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Short deserialize(ByteBuf buffer) {
+    public Short deserialize(ByteBuffer buffer) {
       return INT16.deserialize(buffer);
     }
 
@@ -333,15 +315,15 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       assert(value instanceof Integer);
-      buffer.writeInt((Integer) value);
+      buffer.putInt((Integer) value);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Integer deserialize(ByteBuf buffer) {
-      return buffer.readInt();
+    public Integer deserialize(ByteBuffer buffer) {
+      return buffer.getInt();
     }
 
     @SuppressWarnings("unchecked")
@@ -373,13 +355,13 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       INT32.serialize(value, buffer);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Integer deserialize(ByteBuf buffer) {
+    public Integer deserialize(ByteBuffer buffer) {
       return INT32.deserialize(buffer);
     }
 
@@ -412,15 +394,15 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       assert(value instanceof Long);
-      buffer.writeLong((Long) value);
+      buffer.putLong((Long) value);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Long deserialize(ByteBuf buffer) {
-      return buffer.readLong();
+    public Long deserialize(ByteBuffer buffer) {
+      return buffer.getLong();
     }
 
     @SuppressWarnings("unchecked")
@@ -452,13 +434,13 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       INT64.serialize(value, buffer);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Long deserialize(ByteBuf buffer) {
+    public Long deserialize(ByteBuffer buffer) {
       return INT64.deserialize(buffer);
     }
 
@@ -491,15 +473,15 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       assert(value instanceof Float);
-      buffer.writeFloat((Float) value);
+      buffer.putFloat((Float) value);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Float deserialize(ByteBuf buffer) {
-      return buffer.readFloat();
+    public Float deserialize(ByteBuffer buffer) {
+      return buffer.getFloat();
     }
 
     @SuppressWarnings("unchecked")
@@ -531,15 +513,15 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       assert(value instanceof Double);
-      buffer.writeDouble((Double) value);
+      buffer.putDouble((Double) value);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Double deserialize(ByteBuf buffer) {
-      return buffer.readDouble();
+    public Double deserialize(ByteBuffer buffer) {
+      return buffer.getDouble();
     }
 
     @SuppressWarnings("unchecked")
@@ -571,19 +553,20 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       assert(value instanceof String);
       byte[] bytes = ((String) value).getBytes();
-      buffer.writeInt(bytes.length);
-      buffer.writeBytes(bytes);
+      buffer.putInt(bytes.length);
+      buffer.put(bytes);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public String deserialize(ByteBuf buffer) {
-      int length = buffer.readInt();
-      ByteBuffer stringBuffer = buffer.readSlice(length).nioBuffer();
-      return Charset.forName("US-ASCII").decode(stringBuffer).toString();
+    public String deserialize(ByteBuffer buffer) {
+      int length = buffer.getInt();
+      byte[] b = new byte[length];
+      buffer.get(b);
+      return Charset.forName("US-ASCII").decode(ByteBuffer.wrap(b)).toString();
     }
 
     @SuppressWarnings("unchecked")
@@ -615,16 +598,16 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       assert(value instanceof Time);
-      buffer.writeInt(((Time) value).secs);
-      buffer.writeInt(((Time) value).nsecs);
+      buffer.putInt(((Time) value).secs);
+      buffer.putInt(((Time) value).nsecs);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Time deserialize(ByteBuf buffer) {
-      return new Time(buffer.readInt(), buffer.readInt());
+    public Time deserialize(ByteBuffer buffer) {
+      return new Time(buffer.getInt(), buffer.getInt());
     }
 
     @SuppressWarnings("unchecked")
@@ -656,16 +639,16 @@ public enum PrimitiveFieldType implements FieldType, Serializable {
     }
 
     @Override
-    public <T> void serialize(T value, ByteBuf buffer) {
+    public <T> void serialize(T value, ByteBuffer buffer) {
       assert(value instanceof Duration);
-      buffer.writeInt(((Duration) value).secs);
-      buffer.writeInt(((Duration) value).nsecs);
+      buffer.putInt(((Duration) value).secs);
+      buffer.putInt(((Duration) value).nsecs);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Duration deserialize(ByteBuf buffer) {
-      return new Duration(buffer.readInt(), buffer.readInt());
+    public Duration deserialize(ByteBuffer buffer) {
+      return new Duration(buffer.getInt(), buffer.getInt());
     }
 
     @SuppressWarnings("unchecked")

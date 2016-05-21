@@ -16,15 +16,13 @@
 
 package org.ros.internal.message.field;
 
-
-import io.netty.buffer.ByteBuf;
-
 import java.io.Serializable;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author damonkohler@google.com (Damon Kohler)
+ * @author jg
  * 
  * @param <T>
  *          the value type
@@ -58,17 +56,17 @@ public class ListField<T> extends Field implements Serializable {
   }
 
   @Override
-  public void serialize(ByteBuf buffer) {
-    buffer.writeInt(value.size());
+  public void serialize(ByteBuffer buffer) {
+    buffer.putInt(value.size());
     for (T v : value) {
       type.serialize(v, buffer);
     }
   }
 
   @Override
-  public void deserialize(ByteBuf buffer) {
+  public void deserialize(ByteBuffer buffer) {
     value.clear();
-    int size = buffer.readInt();
+    int size = buffer.getInt();
     for (int i = 0; i < size; i++) {
       value.add(type.<T>deserialize(buffer));
     }

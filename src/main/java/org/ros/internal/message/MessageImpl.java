@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2011 Google Inc.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-
 package org.ros.internal.message;
 
 import org.ros.exception.RosRuntimeException;
@@ -25,13 +9,12 @@ import org.ros.message.Duration;
 import org.ros.message.MessageIdentifier;
 import org.ros.message.Time;
 
-import io.netty.buffer.ByteBuf;
-
 import java.io.Serializable;
+import java.nio.ByteBuffer;
 import java.util.List;
 
 /**
- * @author damonkohler@google.com (Damon Kohler)
+ * @author jg
  */
 class MessageImpl implements GetInstance, Serializable {
   private static final long serialVersionUID = 3583352173348650846L;
@@ -426,12 +409,12 @@ class MessageImpl implements GetInstance, Serializable {
   }
   
   
-  public ByteBuf getChannelBuffer(String name) {
-    return (ByteBuf) messageFields.getFieldValue(name);
+  public ByteBuffer getChannelBuffer(String name) {
+    return (ByteBuffer) messageFields.getFieldValue(name);
   }
 
   
-  public void setChannelBuffer(String name, ByteBuf value) {
+  public void setChannelBuffer(String name, ByteBuffer value) {
     messageFields.setFieldValue(name, value);
   }
   

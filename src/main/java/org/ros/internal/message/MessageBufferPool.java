@@ -1,24 +1,6 @@
-/*
- * Copyright (C) 2012 Google Inc.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-
 package org.ros.internal.message;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.PooledByteBufAllocator;
-import io.netty.util.ReferenceCountUtil;
+import java.nio.ByteBuffer;
 
 import org.apache.commons.pool.ObjectPool;
 import org.apache.commons.pool.PoolableObjectFactory;
@@ -26,45 +8,44 @@ import org.apache.commons.pool.impl.StackObjectPool;
 import org.ros.exception.RosRuntimeException;
 
 /**
- * A pool of {@link ByteBuf}s for serializing and deserializing messages.
+ * A pool of {@link ByteBuffer}s for serializing and deserializing messages.
  * <p>
- * By contract, {@link ByteBuf}s provided by {@link #acquire()} must be
- * returned using {@link #release(ByteBuf)}.
+ * By contract, {@link ByteBuffer}s provided by {@link #acquire()} must be
+ * returned using {@link #release(ByteBuffer)}.
  * 
- * @author damonkohler@google.com (Damon Kohler)
+ * @author jg
  */
 public class MessageBufferPool {
 
-  //private final ObjectPool<ByteBuf> pool;
-	//private final PooledByteBufAllocator pool;
+  private final ObjectPool<ByteBuffer> pool;
 
   public MessageBufferPool() {
-	  /*
-    pool = new StackObjectPool<ByteBuf>(new PoolableObjectFactory<ByteBuf>() {
+	  
+    pool = new StackObjectPool<ByteBuffer>(new PoolableObjectFactory<ByteBuffer>() {
       @Override
-      public ByteBuf makeObject() throws Exception {
+      public ByteBuffer makeObject() throws Exception {
         return MessageBuffers.dynamicBuffer();
       }
 
       @Override
-      public void destroyObject(ByteBuf channelBuffer) throws Exception {
+      public void destroyObject(ByteBuffer channelBuffer) throws Exception {
       }
 
       @Override
-      public boolean validateObject(ByteBuf channelBuffer) {
+      public boolean validateObject(ByteBuffer channelBuffer) {
         return true;
       }
 
       @Override
-      public void activateObject(ByteBuf channelBuffer) throws Exception {
+      public void activateObject(ByteBuffer channelBuffer) throws Exception {
       }
 
       @Override
-      public void passivateObject(ByteBuf channelBuffer) throws Exception {
+      public void passivateObject(ByteBuffer channelBuffer) throws Exception {
         channelBuffer.clear();
       }
     });
-    */
+    
 	 
   }
 
@@ -74,26 +55,23 @@ public class MessageBufferPool {
    * 
    * @return an unused {@link ByteBuf}
    */
-  public ByteBuf acquire() {
+  public ByteBuffer acquire() {
     try {
-      //return pool.borrowObject();
-    	return PooledByteBufAllocator.DEFAULT.buffer();
+      return pool.borrowObject();   	
     } catch (Exception e) {
       throw new RosRuntimeException(e);
     }
   }
 
   /**
-   * Release a previously acquired {@link ByteBuf}.
+   * Release a previously acquired {@link ByteBuffer}.
    * 
    * @param channelBuffer
-   *          the {@link ByteBuf} to release
+   *          the {@link ByteBuffer} to release
    */
-  public void release(ByteBuf channelBuffer) {
+  public void release(ByteBuffer channelBuffer) {
     try {
-      //pool.returnObject(channelBuffer);
-    	//ReferenceCountUtil.release(channelBuffer);
-    	
+      pool.returnObject(channelBuffer);  	
     } catch (Exception e) {
       throw new RosRuntimeException(e);
     }

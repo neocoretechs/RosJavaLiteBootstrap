@@ -18,7 +18,8 @@ package org.ros.internal.message.field;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import io.netty.buffer.ByteBuf;
+
+import java.nio.ByteBuffer;
 
 import org.ros.internal.message.MessageBuffers;
 import org.junit.Test;
@@ -37,11 +38,11 @@ public class ArrayFieldTest {
     boolean[] value = new boolean[] { true, false, true, false };
     field.setValue(value);
     assertEquals(PrimitiveFieldType.BOOL, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected = new byte[] { 4, 0, 0, 0, 1, 0, 1, 0 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -50,11 +51,11 @@ public class ArrayFieldTest {
     BooleanArrayField field = BooleanArrayField.newVariable("foo", 4);
     field.setValue(new boolean[] { true, false, true, false });
     assertEquals(PrimitiveFieldType.BOOL, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected = new byte[] { 1, 0, 1, 0 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -71,11 +72,11 @@ public class ArrayFieldTest {
     ByteArrayField field = ByteArrayField.newVariable(type, "foo", -1);
     field.setValue(new byte[] { 1, 2, 3, 4 });
     assertEquals(type, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected = new byte[] { 4, 0, 0, 0, 1, 2, 3, 4 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -92,11 +93,11 @@ public class ArrayFieldTest {
     ByteArrayField field = ByteArrayField.newVariable(type, "foo", 4);
     field.setValue(new byte[] { 1, 2, 3, 4 });
     assertEquals(type, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected = new byte[] { 1, 2, 3, 4 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -105,13 +106,13 @@ public class ArrayFieldTest {
     DoubleArrayField field = DoubleArrayField.newVariable("foo", -1);
     field.setValue(new double[] { 1, 2, 3, 4 });
     assertEquals(PrimitiveFieldType.FLOAT64, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected =
         new byte[] { 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, -16, 63, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0,
             0, 8, 64, 0, 0, 0, 0, 0, 0, 16, 64 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -120,13 +121,13 @@ public class ArrayFieldTest {
     DoubleArrayField field = DoubleArrayField.newVariable("foo", 4);
     field.setValue(new double[] { 1, 2, 3, 4 });
     assertEquals(PrimitiveFieldType.FLOAT64, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected =
         new byte[] { 0, 0, 0, 0, 0, 0, -16, 63, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 8, 64,
             0, 0, 0, 0, 0, 0, 16, 64 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -135,12 +136,12 @@ public class ArrayFieldTest {
     FloatArrayField field = FloatArrayField.newVariable("foo", -1);
     field.setValue(new float[] { 1, 2, 3, 4 });
     assertEquals(PrimitiveFieldType.FLOAT32, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected =
         new byte[] { 4, 0, 0, 0, 0, 0, -128, 63, 0, 0, 0, 64, 0, 0, 64, 64, 0, 0, -128, 64 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -149,11 +150,11 @@ public class ArrayFieldTest {
     FloatArrayField field = FloatArrayField.newVariable("foo", 4);
     field.setValue(new float[] { 1, 2, 3, 4 });
     assertEquals(PrimitiveFieldType.FLOAT32, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected = new byte[] { 0, 0, -128, 63, 0, 0, 0, 64, 0, 0, 64, 64, 0, 0, -128, 64 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -167,11 +168,11 @@ public class ArrayFieldTest {
     IntegerArrayField field = IntegerArrayField.newVariable(type, "foo", -1);
     field.setValue(new int[] { 1, 2, 3, 4 });
     assertEquals(type, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected = new byte[] { 4, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -185,11 +186,11 @@ public class ArrayFieldTest {
     IntegerArrayField field = IntegerArrayField.newVariable(type, "foo", 4);
     field.setValue(new int[] { 1, 2, 3, 4 });
     assertEquals(type, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected = new byte[] { 1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -203,13 +204,13 @@ public class ArrayFieldTest {
     LongArrayField field = LongArrayField.newVariable(type, "foo", -1);
     field.setValue(new long[] { 1, 2, 3, 4 });
     assertEquals(type, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected =
         new byte[] { 4, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0,
             0, 0, 4, 0, 0, 0, 0, 0, 0, 0 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -223,13 +224,13 @@ public class ArrayFieldTest {
     LongArrayField field = LongArrayField.newVariable(type, "foo", 4);
     field.setValue(new long[] { 1, 2, 3, 4 });
     assertEquals(type, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected =
         new byte[] { 1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 4, 0,
             0, 0, 0, 0, 0, 0 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -243,11 +244,11 @@ public class ArrayFieldTest {
     ShortArrayField field = ShortArrayField.newVariable(type, "foo", -1);
     field.setValue(new short[] { 1, 2, 3, 4 });
     assertEquals(type, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected = new byte[] { 4, 0, 0, 0, 1, 0, 2, 0, 3, 0, 4, 0 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 
@@ -261,11 +262,11 @@ public class ArrayFieldTest {
     ShortArrayField field = ShortArrayField.newVariable(type, "foo", 4);
     field.setValue(new short[] { 1, 2, 3, 4 });
     assertEquals(type, field.getType());
-    ByteBuf buffer = MessageBuffers.dynamicBuffer();
+    ByteBuffer buffer = MessageBuffers.dynamicBuffer();
     field.serialize(buffer);
     byte[] expected = new byte[] { 1, 0, 2, 0, 3, 0, 4, 0 };
-    byte[] actual = new byte[buffer.readableBytes()];
-    buffer.readBytes(actual);
+    byte[] actual = new byte[buffer.limit()];
+    buffer.get(actual);
     assertArrayEquals(expected, actual);
   }
 }

@@ -3,9 +3,8 @@
 
 package org.ros.internal.message.field;
 
-import io.netty.buffer.ByteBuf;
-
 import java.io.Serializable;
+import java.nio.ByteBuffer;
 
 
 /**
@@ -47,12 +46,12 @@ class ValueField<T> extends Field implements Serializable {
   }
 
   @Override
-  public void serialize(ByteBuf buffer) {
+  public void serialize(ByteBuffer buffer) {
     type.serialize(getValue(), buffer);
   }
 
   @Override
-  public void deserialize(ByteBuf buffer) {
+  public void deserialize(ByteBuffer buffer) {
     assert(!isConstant);
     setValue(type.<T>deserialize(buffer));
   }

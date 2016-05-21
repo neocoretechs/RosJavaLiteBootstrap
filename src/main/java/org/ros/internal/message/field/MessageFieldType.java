@@ -1,22 +1,17 @@
-/*
- */
-
 package org.ros.internal.message.field;
-
-import io.netty.buffer.ByteBuf;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
 import org.ros.internal.message.Message;
 import org.ros.message.MessageFactory;
 import org.ros.message.MessageIdentifier;
-
 
 /**
  */
@@ -78,7 +73,7 @@ public class MessageFieldType implements FieldType, Serializable {
   }
 
   @Override
-  public <T> void serialize(T value, ByteBuf buffer) {
+  public <T> void serialize(T value, ByteBuffer buffer) {
     //serializer.serialize((Message) value, buffer);
 	DirectByteArrayOutputStream dbaos = new DirectByteArrayOutputStream();
 	ObjectOutputStream oos;
@@ -86,7 +81,7 @@ public class MessageFieldType implements FieldType, Serializable {
 		oos = new ObjectOutputStream(dbaos);
 		oos.writeObject(value);
 		oos.flush();
-		buffer.writeBytes(dbaos.getBuf());
+		buffer.put(dbaos.getBuf());
 		oos.close();
 	} catch (IOException e) {
 		e.printStackTrace();
@@ -95,7 +90,7 @@ public class MessageFieldType implements FieldType, Serializable {
 
   @SuppressWarnings("unchecked")
   @Override
-  public Message deserialize(ByteBuf buffer) {
+  public Message deserialize(ByteBuffer buffer) {
     //return deserializer.deserialize(buffer);
 	byte[] obuf = buffer.array();
 	Object Od = null;
