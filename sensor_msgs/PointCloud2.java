@@ -26,10 +26,10 @@ public class PointCloud2 implements org.ros.internal.message.Message, java.io.Se
 	private int row_step;
 	public int getRowStep() { return row_step; }
 	public void setRowStep(int value) { row_step = value; }
-	private transient io.netty.buffer.ByteBuf data=null;
+	private transient java.nio.ByteBuffer data=null;
 	private byte[] bytesdata;
-	public io.netty.buffer.ByteBuf getData() { if( data != null ) return data; else data = io.netty.buffer.ByteBufs.wrappedBuffer(bytesdata); return data; }
-	public void setData(io.netty.buffer.ByteBuf value) { data = value;  bytesdata = data.array(); }
+	public java.nio.ByteBuffer getData() { if( data != null ) return data; else data = java.nio.ByteBuffer.wrap(bytesdata); return data.order(java.nio.ByteOrder.LITTLE_ENDIAN); }
+	public void setData(java.nio.ByteBuffer value) { data = value;  bytesdata = data.array(); }
 	private boolean is_dense;
 	public boolean getIsDense() { return is_dense; }
 	public void setIsDense(boolean value) { is_dense = value; }

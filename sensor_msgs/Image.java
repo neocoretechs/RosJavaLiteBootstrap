@@ -23,8 +23,8 @@ public class Image implements org.ros.internal.message.Message, java.io.Serializ
 	private int step;
 	public int getStep() { return step; }
 	public void setStep(int value) { step = value; }
-	private transient io.netty.buffer.ByteBuf data=null;
+	private transient java.nio.ByteBuffer data=null;
 	private byte[] bytesdata;
-	public io.netty.buffer.ByteBuf getData() { if( data != null ) return data; else data = io.netty.buffer.ByteBufs.wrappedBuffer(bytesdata); return data; }
-	public void setData(io.netty.buffer.ByteBuf value) { data = value;  bytesdata = data.array(); }
+	public java.nio.ByteBuffer getData() { if( data != null ) return data; else data = java.nio.ByteBuffer.wrap(bytesdata); return data.order(java.nio.ByteOrder.LITTLE_ENDIAN); }
+	public void setData(java.nio.ByteBuffer value) { data = value;  bytesdata = data.array(); }
 }

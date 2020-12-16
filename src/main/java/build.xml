@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="ROSBuild" default="main" basedir=".">
+<project name="ROSBaseBuild" default="main" basedir=".">
   <!-- Sets variables which can later be used. -->
   <!-- The value of a property is accessed via ${} -->
   <property name="src.dir" location="." />
@@ -26,7 +26,7 @@
 
   <!-- Compiles the java code (including the usage of library for JUnit -->
   <target name="compile" depends="makedir">
-    <javac srcdir="${src.dir}" destdir="${build.dir}" classpath="${lib.dir}/netty.Final.jar:${lib.dir}/commons-pool-1.6.jar:${lib.dir}/commons-lang-2.6.jar:${lib.dir}/ws-commons-util-1.0.1.jar:${lib.dir}/en_us.jar:${lib.dir}/commons-digester-1.8.1.jar:${lib.dir}/commons-logging-1.1.2.jar:${lib.dir}/commons-io-2.4.jar">
+    <javac compiler="modern" srcdir="${src.dir}" destdir="${build.dir}" classpath="${lib.dir}/commons-lang-2.6.jar:${lib.dir}/ws-commons-util-1.0.1.jar:${lib.dir}/en_us.jar:${lib.dir}/commons-digester-1.8.1.jar:${lib.dir}/commons-logging-1.1.2.jar:${lib.dir}/commons-io-2.4.jar">
     </javac>
 
   </target>
