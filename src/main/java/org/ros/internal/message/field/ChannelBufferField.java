@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 /**
- * @author jg
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 public class ChannelBufferField extends Field implements Serializable {
 

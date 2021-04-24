@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author jg
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 public enum PrimitiveFieldType implements FieldType, Serializable {
 

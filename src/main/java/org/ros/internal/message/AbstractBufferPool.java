@@ -6,6 +6,13 @@ import java.util.NavigableMap;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
+/**
+ * Abstraction of BufferPool for various functions such as ByteBuffer.
+ * JAva 8 compatibility required at this crosscut.
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
+ *
+ * @param <T> Buffer type
+ */
 public abstract class AbstractBufferPool<T extends Buffer> {
 
 	public AbstractBufferPool() {}
@@ -24,7 +31,7 @@ public abstract class AbstractBufferPool<T extends Buffer> {
      * An {@code abstract} method that allocates a new {@link T buffer} with the specified capacity.
      *
      * @param capacity the capacity of the buffer to create.
-     * @return         a newly-allocated buffer.
+     * @return a newly-allocated buffer.
      */
     protected abstract T allocate(int capacity);
     
@@ -35,9 +42,8 @@ public abstract class AbstractBufferPool<T extends Buffer> {
      * created.
      *
      * @param capacity the capacity of the buffer requested, which will be interpreted differently for each
-     *                 implementation of this pool. A {@link org.ros.internal.message.github.pbbl.heap.ByteBufferPool} measures
-     *                 {@code capacity} in bytes, a {@link com.github.pbbl.heap.CharBufferPool} measures
-     *                 {@code capacity} in chars, etc.
+     *                 implementation of this pool. A {@link org.ros.internal.message.ByteBufferPool} measures
+     *                 {@code capacity} in bytes
      * @return         a buffer with a capacity greater than or equal to {@code capacity}, a limit set to
      *                 {@code capacity}, and position set to {@code 0}.
      */

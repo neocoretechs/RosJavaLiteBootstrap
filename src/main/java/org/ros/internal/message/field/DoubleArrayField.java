@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 /**
- * @author jg
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 public class DoubleArrayField extends Field implements Serializable {
   private static final long serialVersionUID = 8846745882588147842L;

@@ -1,21 +1,4 @@
-/*
- * Copyright (C) 2011 Google Inc.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-
 package org.ros.internal.message.definition;
-
 
 import org.ros.exception.RosRuntimeException;
 import org.ros.internal.message.field.PrimitiveFieldType;
@@ -28,7 +11,7 @@ import java.io.StringReader;
  * Parses message definitions and invokes a {@link MessageDefinitionVisitor} for
  * each field.
  * 
- * @author damonkohler@google.com (Damon Kohler)
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 public class MessageDefinitionParser {
 
@@ -38,42 +21,32 @@ public class MessageDefinitionParser {
     /**
      * Called for each constant in the message definition.
      * 
-     * @param type
-     *          the type of the constant
-     * @param name
-     *          the name of the constant
-     * @param value
-     *          the value of the constant
+     * @param type the type of the constant
+     * @param name the name of the constant
+     * @param value the value of the constant
      */
     void constantValue(String type, String name, String value);
 
     /**
      * Called for each scalar in the message definition.
      * 
-     * @param type
-     *          the type of the scalar
-     * @param name
-     *          the name of the scalar
+     * @param type the type of the scalar
+     * @param name the name of the scalar
      */
     void variableValue(String type, String name);
 
     /**
      * Called for each array in the message definition.
      * 
-     * @param type
-     *          the type of the array
-     * @param size
-     *          the size of the array or -1 if the size is unbounded
-     * @param name
-     *          the name of the array
+     * @param type the type of the array
+     * @param size the size of the array or -1 if the size is unbounded
+     * @param name the name of the array
      */
     void variableList(String type, int size, String name);
   }
 
   /**
-   * @param visitor
-   *          the {@link MessageDefinitionVisitor} that will be called for each
-   *          field
+   * @param visitor the {@link MessageDefinitionVisitor} that will be called for each field
    */
   public MessageDefinitionParser(MessageDefinitionVisitor visitor) {
     this.visitor = visitor;
@@ -82,10 +55,8 @@ public class MessageDefinitionParser {
   /**
    * Parses the message definition
    * 
-   * @param messageType
-   *          the type of message defined (e.g. std_msgs/String)
-   * @param messageDefinition
-   *          the message definition (e.g. "string data")
+   * @param messageType the type of message defined (e.g. std_msgs/String)
+   * @param messageDefinition the message definition (e.g. "string data")
    */
   public void parse(String messageType, String messageDefinition) {
     assert(messageType!=null);
@@ -112,7 +83,7 @@ public class MessageDefinitionParser {
   }
 
   private void parseField(String messageType, String fieldDefinition) {
-    // TODO(damonkohler): Regex input validation.
+    // TODO Regex input validation.
     String[] typeAndName = fieldDefinition.split("\\s+", 2);
     assert(typeAndName.length == 2) : String.format("Invalid field definition: \"%s\"", fieldDefinition);
     String type = typeAndName[0];
@@ -151,7 +122,7 @@ public class MessageDefinitionParser {
     }
     if (value != null) {
       if (array) {
-        // TODO(damonkohler): Handle array constants?
+        // TODO Handle array constants?
         throw new UnsupportedOperationException("Array constants are not supported.");
       }
       // Comments inline with string constants are treated as data.

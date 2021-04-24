@@ -14,7 +14,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 
 /**
- * @author jg
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 class MessageImpl implements GetInstance, Serializable {
   private static final long serialVersionUID = 3583352173348650846L;

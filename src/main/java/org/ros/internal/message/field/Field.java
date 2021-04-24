@@ -3,9 +3,8 @@ package org.ros.internal.message.field;
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 
-
 /**
- * @author jg
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 public abstract class Field implements Serializable {
   private static final long serialVersionUID = 2147925628455327757L;

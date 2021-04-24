@@ -17,8 +17,10 @@ import java.util.Set;
 
 /**
  * This class generates the actual java class files representing the translated ROS message definitions
- * It is driven by the <see>GenerateClasses</see> module.
- * @author jg
+ * It is driven by the <see>GenerateClasses</see> module.<p/>
+ * Again note that 'interface' refers to concrete java class that fulfills message contract 
+ * rather than actual java interface.
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 public class MessageInterfaceBuilder {
 
@@ -47,9 +49,7 @@ public class MessageInterfaceBuilder {
   }
 
   /**
-   * @param packageName
-   *          the package name of the interface or {@code null} if no package
-   *          name should be specified
+   * @param packageName the package name of the class or {@code null} if no package name should be specified
    * @return this {@link MessageInterfaceBuilder}
    */
   public MessageInterfaceBuilder setPackageName(String packageName) {

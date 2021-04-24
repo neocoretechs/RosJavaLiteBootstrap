@@ -14,6 +14,7 @@ import org.ros.message.MessageFactory;
 import org.ros.message.MessageIdentifier;
 
 /**
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 public class MessageFieldType implements FieldType, Serializable {
   private static final long serialVersionUID = -5991760011444968163L;

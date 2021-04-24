@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 /**
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 public class ShortArrayField extends Field implements Serializable {
   private static final long serialVersionUID = -1040540702771458698L;

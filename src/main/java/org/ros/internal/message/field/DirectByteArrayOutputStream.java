@@ -3,7 +3,7 @@ package org.ros.internal.message.field;
 import java.io.ByteArrayOutputStream;
 /**
  * Implementation of ByteArrayOutputStream that does NOT copy the backing store
- * @author jg
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  *
  */
 public final class DirectByteArrayOutputStream  extends ByteArrayOutputStream {

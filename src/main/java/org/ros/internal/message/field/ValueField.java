@@ -1,13 +1,10 @@
-/*
- */
-
 package org.ros.internal.message.field;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 
-
 /**
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 class ValueField<T> extends Field implements Serializable {
   private static final long serialVersionUID = -6187183275557684853L;

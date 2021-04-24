@@ -19,7 +19,10 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * @author jg
+ * RosJavaLite generation of messages as concrete classes for serialization.<p/>
+ * Quantum leap in performance over generation of interfaces and dynamic invocation dispatcher.<p/>
+ * Where 'interface' is used it refers to concrete class fulfiller of contract, rather than actual java interface.
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 public class GenerateClasses {
 
@@ -38,11 +41,8 @@ public class GenerateClasses {
   }
 
   /**
-   * @param packages
-   *          a list of packages containing the topic types to generate
-   *          interfaces for
-   * @param outputDirectory
-   *          the directory to write the generated interfaces to
+   * @param packages a list of packages containing the topic types to generate classes for
+   * @param outputDirectory the directory to write the generated interfaces to
    * @throws IOException
    */
   private void writeTopicInterfaces(File outputDirectory, Collection<String> packages)
@@ -66,11 +66,8 @@ public class GenerateClasses {
   }
 
   /**
-   * @param packages
-   *          a list of packages containing the topic types to generate
-   *          interfaces for
-   * @param outputDirectory
-   *          the directory to write the generated interfaces to
+   * @param packages a list of packages containing the topic types to generate classes for
+   * @param outputDirectory the directory to write the generated classes to
    * @throws IOException
    */
   private void writeServiceInterfaces(File outputDirectory, Collection<String> packages)

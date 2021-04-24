@@ -1,12 +1,11 @@
 package org.ros.internal.message.field;
 
-
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 /**
- * @author damonkohler@google.com (Damon Kohler)
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 public class LongArrayField extends Field implements Serializable {
   private static final long serialVersionUID = 7377367721418490002L;

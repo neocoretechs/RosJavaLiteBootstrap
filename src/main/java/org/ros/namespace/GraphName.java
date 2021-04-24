@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * 
  * @see <a href="http://www.ros.org/wiki/Names">Names documentation</a>
  * 
- * @author jg
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 public class GraphName implements Serializable {
 
@@ -59,8 +59,7 @@ public class GraphName implements Serializable {
   /**
    * Returns a new {@link GraphName} of the specified {@link #name}.
    * 
-   * @param name
-   *          the name of this resource
+   * @param name the name of this resource
    * @return a new {@link GraphName} for {@link #name}
    */
   public static GraphName of(String name) {
@@ -116,16 +115,14 @@ public class GraphName implements Serializable {
   }
 
   /**
-   * @return {@code true} if this {@link GraphName} represents the root
-   *         namespace, {@code false} otherwise
+   * @return {@code true} if this {@link GraphName} represents the root namespace, {@code false} otherwise
    */
   public boolean isRoot() {
     return name.equals(GraphName.ROOT);
   }
 
   /**
-   * @return {@code true} if this {@link GraphName} is empty, {@code false}
-   *         otherwise
+   * @return {@code true} if this {@link GraphName} is empty, {@code false}  otherwise
    */
   public boolean isEmpty() {
     return name.isEmpty();
@@ -170,8 +167,7 @@ public class GraphName implements Serializable {
   }
 
   /**
-   * @return the parent of this {@link GraphName} in its canonical
-   *         representation or an empty {@link GraphName} if there is no parent
+   * @return the parent of this {@link GraphName} in its canonical representation or an empty {@link GraphName} if there is no parent
    */
   public GraphName getParent() {
     if (name.length() == 0) {
@@ -237,11 +233,8 @@ public class GraphName implements Serializable {
   /**
    * Join this {@link GraphName} with another.
    * 
-   * @param other
-   *          the {@link GraphName} to join with, if other is global, this will
-   *          return other
-   * @return a {@link GraphName} representing the concatenation of this
-   *         {@link GraphName} and {@code other}
+   * @param other the {@link GraphName} to join, if other is global, this will return other
+   * @return a {@link GraphName} representing the concatenation of this {@link GraphName} and {@code other}
    */
   public GraphName join(GraphName other) {
     if (other.isGlobal() || isEmpty()) {

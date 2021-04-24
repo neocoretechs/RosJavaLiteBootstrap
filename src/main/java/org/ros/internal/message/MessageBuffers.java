@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 /**
  * Provides ByteBuffers for serializing and deserializing messages.
- * @author jg
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
  */
 
 public class MessageBuffers {

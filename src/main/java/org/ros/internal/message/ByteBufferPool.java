@@ -1,5 +1,10 @@
 package org.ros.internal.message;
 import java.nio.ByteBuffer;
+/**
+ * Support for nio ByteBuffer as buffer pool.
+ * @author Jonathan Groff Copyright (C) NeoCoreTechs 2015,2021
+ *
+ */
 public class ByteBufferPool extends AbstractBufferPool<ByteBuffer> {
 
 	public ByteBufferPool() {}
