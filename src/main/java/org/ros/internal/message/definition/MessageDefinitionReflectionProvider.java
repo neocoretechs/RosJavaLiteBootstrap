@@ -22,8 +22,11 @@ public class MessageDefinitionReflectionProvider implements MessageDefinitionPro
   private static final String DEFINITION_FIELD = "_DEFINITION";
 
   private final Map<String, String> cache;
+  
+  private final ClassLoader classLoader;
 
-  public MessageDefinitionReflectionProvider() {
+  public MessageDefinitionReflectionProvider(ClassLoader classLoader) {
+	this.classLoader = classLoader;
     cache = new ConcurrentHashMap<String, String>();
   }
 
@@ -33,7 +36,7 @@ public class MessageDefinitionReflectionProvider implements MessageDefinitionPro
     if (messageDefinition == null) {
       String className = messageType.replace("/", ".");
       try {
-        Class<?> loadedClass = getClass().getClassLoader().loadClass(className);
+        Class<?> loadedClass = classLoader.loadClass(className);
         messageDefinition = (String) loadedClass.getDeclaredField(DEFINITION_FIELD).get(null);
         cache.put(messageType, messageDefinition);
       } catch (Exception e) {

@@ -6,7 +6,6 @@ import org.ros.internal.message.context.MessageContextProvider;
 import org.ros.message.MessageDeclaration;
 import org.ros.message.MessageFactory;
 
-import java.lang.reflect.Proxy;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -39,8 +38,7 @@ public class MessageProxyFactory {
     }
     Class<T> messageInterfaceClass;
 	try {
-		messageInterfaceClass = //(Class<T>) messageInterfaceClassProvider.get(messageDeclaration.getType());
-		(Class<T>) Class.forName(messageDeclaration.getType().replace('/', '.'));
+		messageInterfaceClass = (Class<T>) Class.forName(messageDeclaration.getType().replace('/', '.'));
 	} catch (ClassNotFoundException e) {
 		System.out.println(e.getMessage());
 		e.printStackTrace();
@@ -49,23 +47,10 @@ public class MessageProxyFactory {
     try {
 		return messageInterfaceClass.newInstance();
 	} catch (InstantiationException | IllegalAccessException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}//newProxy(messageInterfaceClass, messageImpl);
+	}
     return null;
   }
 
-  /**
-   * @param interfaceClass the interface class to provide
-   * @param messageImpl the instance to proxy
-   * @return a new proxy for {@code implementation} that implements {@code interfaceClass}
-   */
-  @SuppressWarnings("unchecked")
-  private <T> T newProxy(Class<T> interfaceClass, final MessageImpl messageImpl) {
-    ClassLoader classLoader = messageImpl.getClass().getClassLoader();
-    Class<?>[] interfaces = new Class<?>[] { interfaceClass, GetInstance.class };
-    MessageProxyInvocationHandler invocationHandler =
-        new MessageProxyInvocationHandler(messageImpl);
-    return (T) Proxy.newProxyInstance(classLoader, interfaces, invocationHandler);
-  }
+  
 }
